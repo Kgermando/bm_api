@@ -8,31 +8,39 @@ export class User {
     id: number;
 
     @Column()
-    first_name: string;
+    firstName: string;
 
     @Column()
-    last_name: string;
+    lastName: string;
 
-    @Column({ unique: true })
-    username: string;
+    // @Column({ unique: true })
+    // username: string;
 
     @Column()
     email: string;
 
-    @Column()
+    @Column({ unique: true })
     telephone: string;
 
     @Column()
-    name_business: string;
+    nameBusiness: string;
 
     @Column()
-    type_abonnement: string;
+    typeAbonnement: string;
+
+    @Column()
+    province: string;
 
     @Column()
     @Exclude()
     password: string;
 
-    @ManyToOne(() => Role)
-    @JoinColumn({ name: 'roleId' })
-    role: Role;
+    // @ManyToOne(() => Role)
+    // @JoinColumn({ name: 'roleId' })
+    // role: Role;
+    // @Column()
+    // createdAt: Date;
+
+    // @Column()
+    // updatedAt: Date;
 }

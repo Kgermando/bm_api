@@ -2,13 +2,13 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class UserCreateDto {
   @IsNotEmpty()
-  first_name: string;
+  firstName: string;
 
   @IsNotEmpty()
-  last_name: string;
+  lastName: string;
 
-  @IsNotEmpty()
-  username: string;
+  // @IsNotEmpty()
+  // username: string;
 
   @IsEmail()
   email: string;
@@ -17,11 +17,20 @@ export class UserCreateDto {
   telephone: string;
 
   @IsNotEmpty()
-  name_business: string;
+  nameBusiness: string;
 
   @IsNotEmpty()
-  type_abonnement: string;
+  typeAbonnement: string;
 
   @IsNotEmpty()
-  roleId: number;
+  province: string;
+
+  // @IsNotEmpty()
+  // roleId: number;
+
+  // @IsNotEmpty()
+  // createdAt?: Date;
+  
+  // @IsNotEmpty()
+  // updatedAt?: Date;
 }

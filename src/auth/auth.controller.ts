@@ -28,30 +28,32 @@ export class AuthController {
 
     @Post('register')
     async register(@Body() body: RegisterDto) {
-        if (body.password !== body.password_confirm) {
+        if (body.password !== body.passwordConfirm) {
             throw new BadRequestException('Le mot de passe ne match pas!');
         }
         const hashed = await bcrypt.hash(body.password, 12);
         return this.usersService.create({
-            first_name: body.first_name,
-            last_name: body.last_name,
-            username: body.username,
+            firstName: body.firstName,
+            lastName: body.lastName,
             email: body.email,
             telephone: body.telephone,
-            name_business: body.name_business,
-            type_abonnement: body.type_abonnement,
+            nameBusiness: body.nameBusiness,
+            typeAbonnement: body.typeAbonnement,
+            province: body.province,
             password: hashed,
-            role: { id: 1 }
+            // role: { id: 1 }
+            // createdAt: body.createdAt,
+            // updatedAt: body.updatedAt,
         });
     }
 
     @Post('login')
     async login(
-        @Body('username') username: string,
+        @Body('telephone') telephone: string,
         @Body('password') password: string,
         @Res({ passthrough: true }) response: Response,
     ) {
-        const user = await this.usersService.findOne({ username });
+        const user = await this.usersService.findOne({ telephone });
 
         if (!user) {
             throw new NotFoundException('User not found');
@@ -63,8 +65,10 @@ export class AuthController {
 
         const jwt = await this.jwtService.signAsync({ id: user.id });
 
-        response.cookie('jwt', jwt, { httpOnly: true });
-
+        response.cookie('jwt', jwt, { 
+            httpOnly: true,
+            sameSite: 'lax'
+        });
         return user;
     }
 
@@ -73,7 +77,6 @@ export class AuthController {
     async user(@Req() request: Request) {
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
-
         return this.usersService.findOne({ id: data['id'] });
     }
 
@@ -86,4 +89,5 @@ export class AuthController {
             message: 'Success',
         };
     }
+
 }

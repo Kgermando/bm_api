@@ -1,8 +1,7 @@
 
 
-
 # MARIADB
-npm install --save @nestjs/typeorm typeorm mysql2
+npm install --save @nestjs/typeorm@7.1.5 typeorm mysql2
 
 
 # PASSWORD

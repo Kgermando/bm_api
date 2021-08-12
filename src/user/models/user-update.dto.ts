@@ -1,10 +1,13 @@
 export class UserUpdateDto {
-  first_name?: string;
-  last_name?: string;
-  username?: string;
+  firstName?: string;
+  lastName?: string;
+  // username?: string;
   email?: string;
   telephone?: string;
-  name_business?: string;
-  type_abonnement?: string;
-  roleId?: number;
+  nameBusiness?: string;
+  province?: string;
+  typeAbonnement?: string;
+  // roleId?: number;
+  // createdAt?: Date;
+  // updatedAt?: Date;
 }
