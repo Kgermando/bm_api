@@ -6,12 +6,14 @@ export default class TypeOrmConfig {
     return {
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      ssl: true,
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
+
+      // Uuncomment ssl and extra for production
+      // ssl: true,
+      // extra: {
+      //   ssl: {
+      //     rejectUnauthorized: false,
+      //   },
+      // },
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,

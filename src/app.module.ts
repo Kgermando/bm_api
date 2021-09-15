@@ -7,6 +7,11 @@ import { PermissionModule } from './permission/permission.module';
 import { AuthModule } from './auth/auth.module';
 import { typeOrmConfigAsync } from './config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
+import { AchatModule } from './products/achat/achat.module';
+import { VenteModule } from './products/vente/vente.module';
+import { DetteModule } from './products/dette/dette.module';
+import { ProdmodelModule } from './products/prodmodel/prodmodel.module';
+import { AchatDetteModule } from './products/achat-dette/achat-dette.module';
 
 
 @Module({
@@ -18,6 +23,11 @@ import { ConfigModule } from '@nestjs/config';
     RoleModule,
     PermissionModule,
     AuthModule,
+    AchatModule,
+    VenteModule,
+    DetteModule,
+    ProdmodelModule,
+    AchatDetteModule,
   ],
 })
 export class AppModule {}
