@@ -45,4 +45,9 @@ export abstract class AbstractService {
     async delete(id: number): Promise<any> {
         return this.repository.delete(id);
     }
+
+    async deleteAll(): Promise<any> {
+        return this.repository.query('DELETE FROM cart;');
+    }
+
 }

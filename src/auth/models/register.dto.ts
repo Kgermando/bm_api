@@ -22,8 +22,8 @@ export class RegisterDto {
     @IsNotEmpty()
     province: string;
 
-    // @IsNotEmpty()
-    // roleId: number;
+    @IsNotEmpty()
+    roleId: number;
 
     @IsNotEmpty()
     password: string;
@@ -31,9 +31,9 @@ export class RegisterDto {
     @IsNotEmpty()
     passwordConfirm: string;
 
-    // @IsNotEmpty()
-    // createdAt: Date;
+    @IsNotEmpty()
+    createdAt: Date;
 
-    // @IsNotEmpty()
-    // updatedAt: Date;
+    @IsNotEmpty()
+    updatedAt: Date;
 }
