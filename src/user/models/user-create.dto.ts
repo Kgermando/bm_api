@@ -25,12 +25,15 @@ export class UserCreateDto {
   @IsNotEmpty()
   province: string;
 
-  @IsNotEmpty()
-  roleId: number;
+  // @IsNotEmpty()
+  // roleId: number;
 
   @IsNotEmpty()
-  createdAt?: Date;
+  role: string;
+
+  @IsNotEmpty()
+  createdAt?: string;
   
   @IsNotEmpty()
-  updatedAt?: Date;
+  updatedAt?: string;
 }

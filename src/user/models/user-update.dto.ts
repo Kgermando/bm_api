@@ -7,7 +7,8 @@ export class UserUpdateDto {
   nameBusiness?: string;
   province?: string;
   typeAbonnement?: string;
-  roleId?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  // roleId?: number;
+  role?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

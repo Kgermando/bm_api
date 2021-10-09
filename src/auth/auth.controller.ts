@@ -41,7 +41,8 @@ export class AuthController {
             typeAbonnement: body.typeAbonnement,
             province: body.province,
             password: hashed,
-            role: { id: 1 },
+            // role: { id: 1 },
+            role: body.role,
             createdAt: body.createdAt,
             updatedAt: body.updatedAt,
         });

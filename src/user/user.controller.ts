@@ -10,33 +10,43 @@ export class UserController {
 
     constructor(private usersService: UserService) { }
 
+    // @Get()
+    // async all(@Query('page') page = 1) {
+    //     return await this.usersService.paginate(page, ['role']);
+    // }
+
     @Get()
-    async all(@Query('page') page = 1) {
-        return await this.usersService.paginate(page, ['role']);
+    async all() {
+        return await this.usersService.all();
     }
 
     @Post()
     async create(@Body() body: UserCreateDto): Promise<User[]> {
         const password = await bcrypt.hash('1234', 12);
-        const { roleId, ...data } = body
+        // const { roleId, ...data } = body
+        const { role, ...data } = body
         return this.usersService.create({
             ...data,
             password,
-            role: { id: roleId }
+            // role: { id: roleId }
+            role: body.role
         });
     }
 
     @Get(':id')
     async get(@Param('id') id: number) {
+        // return this.usersService.findOne({ id }, ['role']);
         return this.usersService.findOne({ id }, ['role']);
     }
 
     @Put(':id')
     async update(@Param('id') id: number, @Body() body: UserUpdateDto) {
-        const { roleId, ...data } = body
+        // const { roleId, ...data } = body
+        const { role, ...data } = body
         await this.usersService.update(id, {
             ...data,
-            role: { id: roleId }
+            // role: { id: roleId }
+            role: body.role
         });
 
         return this.usersService.findOne({ id });

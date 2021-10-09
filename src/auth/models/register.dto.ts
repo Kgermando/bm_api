@@ -22,8 +22,11 @@ export class RegisterDto {
     @IsNotEmpty()
     province: string;
 
+    // @IsNotEmpty()
+    // roleId: number;
+
     @IsNotEmpty()
-    roleId: number;
+    role: string;
 
     @IsNotEmpty()
     password: string;
