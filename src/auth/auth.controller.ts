@@ -38,13 +38,12 @@ export class AuthController {
             email: body.email,
             telephone: body.telephone,
             nameBusiness: body.nameBusiness,
+            succursale: body.succursale,
             typeAbonnement: body.typeAbonnement,
             province: body.province,
-            password: hashed,
-            // role: { id: 1 },
             role: body.role,
             createdAt: body.createdAt,
-            updatedAt: body.updatedAt,
+            password: hashed
         });
     }
 

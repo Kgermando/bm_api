@@ -17,16 +17,19 @@ export class RegisterDto {
     nameBusiness: string;
 
     @IsNotEmpty()
+    succursale: string;
+
+    @IsNotEmpty()
     typeAbonnement: string;
 
     @IsNotEmpty()
     province: string;
 
-    // @IsNotEmpty()
-    // roleId: number;
-
     @IsNotEmpty()
     role: string;
+
+    @IsNotEmpty()
+    createdAt: Date;
 
     @IsNotEmpty()
     password: string;
@@ -34,9 +37,6 @@ export class RegisterDto {
     @IsNotEmpty()
     passwordConfirm: string;
 
-    @IsNotEmpty()
-    createdAt: Date;
+    
 
-    @IsNotEmpty()
-    updatedAt: Date;
 }

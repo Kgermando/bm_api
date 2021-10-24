@@ -22,28 +22,25 @@ export class User {
     telephone: string;
 
     @Column()
-    nameBusiness: string;
+    nameBusiness: string; 
+
+    @Column()
+    succursale: string;
 
     @Column()
     typeAbonnement: string;
 
     @Column()
-    province: string;
+    province: string;  
+
+    @Column()
+    role: string;
+
+    @Column()
+    createdAt: Date;
 
     @Column()
     @Exclude()
     password: string;
 
-    // @ManyToOne(() => Role)
-    // @JoinColumn({ name: 'roleId' })
-    // role: Role;
-    
-    @Column()
-    role: string;
-    
-    @Column()
-    createdAt: string;
-
-    @Column()
-    updatedAt: string;
 }

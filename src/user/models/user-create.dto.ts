@@ -7,9 +7,6 @@ export class UserCreateDto {
   @IsNotEmpty()
   lastName: string;
 
-  // @IsNotEmpty()
-  // username: string;
-
   @IsEmail()
   email: string;
 
@@ -20,13 +17,13 @@ export class UserCreateDto {
   nameBusiness: string;
 
   @IsNotEmpty()
+  succursale: String;
+
+  @IsNotEmpty()
   typeAbonnement: string;
 
   @IsNotEmpty()
   province: string;
-
-  // @IsNotEmpty()
-  // roleId: number;
 
   @IsNotEmpty()
   role: string;
@@ -34,6 +31,4 @@ export class UserCreateDto {
   @IsNotEmpty()
   createdAt?: string;
   
-  @IsNotEmpty()
-  updatedAt?: string;
 }
