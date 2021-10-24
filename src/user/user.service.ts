@@ -3,13 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { PaginatedResult } from 'src/common/paginate-result.interface';
 import { Repository } from 'typeorm';
+import { ImageService } from './image.service';
 import { User } from './models/users.entity';
 
 @Injectable()
 export class UserService extends AbstractService {
     constructor(
         @InjectRepository(User) private readonly userRepository: Repository<User>,
-    ) {
+        private imageService: ImageService,
+        ) {
         super(userRepository)
     }
 
@@ -24,4 +26,7 @@ export class UserService extends AbstractService {
             meta
         };
     }
+
+
+
 }

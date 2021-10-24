@@ -1,4 +1,5 @@
 export class UserUpdateDto {
+  logo?: string;
   firstName?: string;
   lastName?: string;
   email?: string;

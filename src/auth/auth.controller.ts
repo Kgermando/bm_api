@@ -8,6 +8,7 @@ import {
     Post,
     Req,
     Res,
+    UploadedFile,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
@@ -17,6 +18,8 @@ import { Request, Response } from 'express';
 import { AuthGuard } from './auth.guard';
 import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './models/register.dto';
+import { ImageService } from 'src/user/image.service';
+import * as fs from 'fs';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -24,15 +27,25 @@ export class AuthController {
     constructor(
         private usersService: UserService,
         private jwtService: JwtService,
+        private imageService: ImageService
     ) { }
 
     @Post('register')
-    async register(@Body() body: RegisterDto) {
+    async register(
+        @Body() body: RegisterDto,
+        @UploadedFile() avatar,
+        ) {
+        if (!avatar?.path || !fs.existsSync(avatar.path)) {
+            throw new BadRequestException('File not loaded');
+        }
         if (body.password !== body.passwordConfirm) {
             throw new BadRequestException('Le mot de passe ne match pas!');
         }
         const hashed = await bcrypt.hash(body.password, 12);
+        const logo = body.logo = avatar.path;
+        await this.imageService.resize(avatar.path);
         return this.usersService.create({
+            logo: logo,
             firstName: body.firstName,
             lastName: body.lastName,
             email: body.email,

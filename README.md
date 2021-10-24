@@ -24,3 +24,6 @@ npm i -D @types/bcrypt
 # JWT
 npm install --save @nestjs/jwt passport-jwt
 npm install --save-dev @types/passport-jwt
+
+# Image
+npm i sharp
