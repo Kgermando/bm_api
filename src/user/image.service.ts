@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as sharp from 'sharp';
 import * as fs from 'fs';
 import { InternalServerErrorException } from '@nestjs/common/exceptions/internal-server-error.exception';
-import { imageConstants } from 'src/common/constants';
+import { imageConstants } from 'src/utils/constants';
 
 @Injectable()
 export class ImageService {

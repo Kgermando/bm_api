@@ -24,7 +24,7 @@ export class UserController {
     //     return await this.usersService.paginate(page, ['role']);
     // }
 
-    @Post()
+    @Post('logo')
     @UseInterceptors(
         FileInterceptor('avatar', {
             storage: diskStorage({

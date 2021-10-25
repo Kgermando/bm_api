@@ -20,6 +20,9 @@ import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './models/register.dto';
 import { ImageService } from 'src/user/image.service';
 import * as fs from 'fs';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { imageFileName } from 'src/utils/image-name.utils';
+import { imageExtensionFilter } from 'src/utils/image-extension.utils';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -29,6 +32,18 @@ export class AuthController {
         private jwtService: JwtService,
         private imageService: ImageService
     ) { }
+
+    @Post('logo')
+    @UseInterceptors(
+        FileInterceptor('avatar', {
+            storage: diskStorage({
+                destination: './uploads',
+                filename: imageFileName,
+            }),
+            fileFilter: imageExtensionFilter,
+        }),
+    )
+
 
     @Post('register')
     async register(
@@ -104,3 +119,7 @@ export class AuthController {
     }
 
 }
+function diskStorage(arg0: { destination: string; filename: any; }): any {
+    throw new Error('Function not implemented.');
+}
+
