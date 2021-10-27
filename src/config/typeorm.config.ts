@@ -8,12 +8,12 @@ export default class TypeOrmConfig {
       url: process.env.DATABASE_URL,
 
       // Uuncomment ssl and extra for production
-      // ssl: true,
-      // extra: {
-      //   ssl: {
-      //     rejectUnauthorized: false,
-      //   },
-      // },
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
