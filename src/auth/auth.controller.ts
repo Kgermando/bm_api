@@ -20,6 +20,7 @@ import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './models/register.dto';
 import { ImageService } from 'src/user/image.service';
 import * as fs from 'fs';
+import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { imageFileName } from 'src/utils/image-name.utils';
 import { imageExtensionFilter } from 'src/utils/image-extension.utils';
@@ -33,7 +34,7 @@ export class AuthController {
         private imageService: ImageService
     ) { }
 
-    @Post('logo')
+    @Post('logo') 
     @UseInterceptors(
         FileInterceptor('avatar', {
             storage: diskStorage({
@@ -74,6 +75,31 @@ export class AuthController {
             password: hashed
         });
     }
+
+
+    // @Post('register')
+    // async register(
+    //     @Body() body: RegisterDto
+    // ) {
+    //     if (body.password !== body.passwordConfirm) {
+    //         throw new BadRequestException('Le mot de passe ne match pas!');
+    //     }
+    //     const hashed = await bcrypt.hash(body.password, 12);
+    //     return this.usersService.create({
+    //         logo: body.logo,
+    //         firstName: body.firstName,
+    //         lastName: body.lastName,
+    //         email: body.email,
+    //         telephone: body.telephone,
+    //         nameBusiness: body.nameBusiness,
+    //         succursale: body.succursale,
+    //         typeAbonnement: body.typeAbonnement,
+    //         province: body.province,
+    //         role: body.role,
+    //         createdAt: body.createdAt,
+    //         password: hashed
+    //     });
+    // }
 
     @Post('login')
     async login(
@@ -118,8 +144,5 @@ export class AuthController {
         };
     }
 
-}
-function diskStorage(arg0: { destination: string; filename: any; }): any {
-    throw new Error('Function not implemented.');
 }
 
