@@ -34,7 +34,7 @@ export class AuthController {
         private imageService: ImageService
     ) { }
 
-    @Post('logo') 
+    @Post('register')
     @UseInterceptors(
         FileInterceptor('avatar', {
             storage: diskStorage({
@@ -46,7 +46,7 @@ export class AuthController {
     )
 
 
-    @Post('register')
+    // @Post('register')
     async register(
         @Body() body: RegisterDto,
         @UploadedFile() avatar,

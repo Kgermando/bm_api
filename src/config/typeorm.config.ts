@@ -5,7 +5,7 @@ export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.DATABASE_URL || process.env.DATABASE_URL_LOCAL,
 
       // Uuncomment ssl and extra for production
       ssl: true,
