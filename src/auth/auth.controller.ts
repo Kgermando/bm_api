@@ -1,10 +1,12 @@
 import {
     BadRequestException,
+    Bind,
     Body,
     ClassSerializerInterceptor,
     Controller,
     Get,
     NotFoundException,
+    Param,
     Post,
     Req,
     Res,
@@ -34,9 +36,9 @@ export class AuthController {
         private imageService: ImageService
     ) { }
 
-    @Post('register')
+    @Post('upload')
     @UseInterceptors(
-        FileInterceptor('avatar', {
+        FileInterceptor('logo', {
             storage: diskStorage({
                 destination: './uploads',
                 filename: imageFileName,
@@ -44,24 +46,30 @@ export class AuthController {
             fileFilter: imageExtensionFilter,
         }),
     )
-
+    // uploadFile(@UploadedFile() file) {
+    //     console.log(file);
+    //     return {
+    //         url: `http://192.168.43.230:3000/api/auth/${file.path}`
+    //     }
+    // } 
 
     // @Post('register')
     async register(
         @Body() body: RegisterDto,
-        @UploadedFile() avatar,
-        ) {
-        if (!avatar?.path || !fs.existsSync(avatar.path)) {
+        @UploadedFile() logo,
+    ) {
+        if (!logo?.path || !fs.existsSync(logo.path)) {
             throw new BadRequestException('File not loaded');
         }
         if (body.password !== body.passwordConfirm) {
             throw new BadRequestException('Le mot de passe ne match pas!');
         }
         const hashed = await bcrypt.hash(body.password, 12);
-        const logo = body.logo = avatar.path;
-        await this.imageService.resize(avatar.path);
+        const image = logo.path;
+        console.log(image);
+        await this.imageService.resize(logo.path);
         return this.usersService.create({
-            logo: logo,
+            logo: image,
             firstName: body.firstName,
             lastName: body.lastName,
             email: body.email,
@@ -76,15 +84,19 @@ export class AuthController {
         });
     }
 
+    // @Get('uploads/:path')
+    // async getImage(@Param('path') path, @Res() res: Response) {
+    //     res.sendFile(path, {root: 'uploads'});
+    // }
 
     // @Post('register')
-    // async register(
-    //     @Body() body: RegisterDto
-    // ) {
+    // async register(@Body() body: RegisterDto) {
+
     //     if (body.password !== body.passwordConfirm) {
     //         throw new BadRequestException('Le mot de passe ne match pas!');
     //     }
     //     const hashed = await bcrypt.hash(body.password, 12);
+
     //     return this.usersService.create({
     //         logo: body.logo,
     //         firstName: body.firstName,
@@ -100,6 +112,43 @@ export class AuthController {
     //         password: hashed
     //     });
     // }
+
+
+    // @Post('upload')
+    // @UseInterceptors(
+    //     FileInterceptor('logo', {
+    //         storage: diskStorage({
+    //             destination: './uploads',
+    //             filename: imageFileName,
+    //         }),
+    //         fileFilter: imageExtensionFilter,
+    //     }),
+    // )
+
+
+    @Post('registeruser')
+    async registeruser(
+        @Body() body: RegisterDto
+    ) {
+        if (body.password !== body.passwordConfirm) {
+            throw new BadRequestException('Le mot de passe ne match pas!');
+        }
+        const hashed = await bcrypt.hash(body.password, 12);
+        return this.usersService.create({
+            logo: body.logo,
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email,
+            telephone: body.telephone,
+            nameBusiness: body.nameBusiness,
+            succursale: body.succursale,
+            typeAbonnement: body.typeAbonnement,
+            province: body.province,
+            role: body.role,
+            createdAt: body.createdAt,
+            password: hashed
+        });
+    }
 
     @Post('login')
     async login(
@@ -120,7 +169,7 @@ export class AuthController {
         const jwt = await this.jwtService.signAsync({ id: user.id });
 
         response.cookie('jwt', jwt, { 
-            httpOnly: true,
+            httpOnly: false, // La valeur qui etait configuré est True
             sameSite: 'lax'
         });
         return user;
@@ -138,7 +187,6 @@ export class AuthController {
     @Post('logout')
     async logout(@Res({ passthrough: true }) response: Response) {
         response.clearCookie('jwt');
-
         return {
             message: 'Success',
         };

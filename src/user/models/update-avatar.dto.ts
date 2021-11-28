@@ -8,5 +8,5 @@ export class UpdateAvatarDto{
 
     @IsNotEmpty()
     @IsString()
-    avatar: string;
+    logo: string;
 }

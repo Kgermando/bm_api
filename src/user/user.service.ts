@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ChangePasswordDto } from 'src/auth/models/change-password.dto';
 import { AbstractService } from 'src/common/abstract.service';
 import { PaginatedResult } from 'src/common/paginate-result.interface';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { ImageService } from './image.service';
 import { User } from './models/users.entity';
 
@@ -26,6 +28,40 @@ export class UserService extends AbstractService {
             meta
         };
     }
+
+
+    // async changePassword(telephone: string, changePasswordDto: ChangePasswordDto) {
+    //     const { oldPassword, newPassword, confirmPassword } = changePasswordDto
+
+    //     const user = await this.usersService.findOne({ telephone });
+
+    //     if (!user) {
+    //         throw new NotFoundException('User not found');
+    //     }
+
+    //     if (newPassword !== confirmPassword) {
+    //         return ({
+    //             code: 201,
+    //             message: 'Confirm password does not match new password'
+    //         })
+    //     }
+
+    //     const salt = await bcrypt.genSalt()
+    //     const userPassword = await bcrypt.hash(newPassword, salt)
+    //     try {
+    //         await this.repository.update({ telephone: user.id },  { password: userPassword } )
+    //     }
+    //     catch (error) {
+    //         return ({
+    //             code: 201,
+    //             message: 'Somethine wrong when update password'
+    //         })
+    //     }
+    //     return ({
+    //         code: 200,
+    //         message: 'Change password successfully'
+    //     })
+    // }
 
 
 
