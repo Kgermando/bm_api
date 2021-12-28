@@ -1,8 +1,10 @@
 import { Exclude } from "class-transformer";
 
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
 @Entity('users')
 export class User {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -31,7 +33,25 @@ export class User {
     typeAbonnement: string;
 
     @Column()
-    province: string;  
+    monnaie: string;
+
+    @Column()
+    rccm: string;
+
+    @Column()
+    nImpot: string;
+
+    @Column()
+    idNat: string;
+
+    @Column()
+    pays: string; 
+    
+    @Column()
+    adresse: string; 
+
+    @Column()
+    adresseSucc: string; 
 
     @Column()
     role: string;

@@ -6,8 +6,14 @@ export class UserUpdateDto {
   telephone?: string;
   nameBusiness?: string;
   succursale?: String;
-  province?: string;
   typeAbonnement?: string;
+  monnaie?: string;
+  rccm?: string;
+  nImpot?: string;
+  idNat?: string;
+  pays?: string;
+  adresse?: string;
+  adresseSucc?: string;
   role?: string;
   createdAt?: string;
 }

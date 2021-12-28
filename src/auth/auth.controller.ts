@@ -46,14 +46,7 @@ export class AuthController {
             fileFilter: imageExtensionFilter,
         }),
     )
-    // uploadFile(@UploadedFile() file) {
-    //     console.log(file);
-    //     return {
-    //         url: `http://192.168.43.230:3000/api/auth/${file.path}`
-    //     }
-    // } 
-
-    // @Post('register')
+    
     async register(
         @Body() body: RegisterDto,
         @UploadedFile() logo,
@@ -65,11 +58,11 @@ export class AuthController {
             throw new BadRequestException('Le mot de passe ne match pas!');
         }
         const hashed = await bcrypt.hash(body.password, 12);
-        const image = logo.path;
-        console.log(image);
+        // const image = logo.path;
+        // console.log(image);
         await this.imageService.resize(logo.path);
         return this.usersService.create({
-            logo: image,
+            logo: logo.path,
             firstName: body.firstName,
             lastName: body.lastName,
             email: body.email,
@@ -77,53 +70,18 @@ export class AuthController {
             nameBusiness: body.nameBusiness,
             succursale: body.succursale,
             typeAbonnement: body.typeAbonnement,
-            province: body.province,
+            monnaie: body.monnaie,
+            rccm: body.rccm,
+            nImpot: body.nImpot,
+            idNat: body.idNat,
+            pays: body.pays,
+            adresse: body.adresse,
+            adresseSucc: body.adresseSucc,
             role: body.role,
             createdAt: body.createdAt,
             password: hashed
         });
     }
-
-    // @Get('uploads/:path')
-    // async getImage(@Param('path') path, @Res() res: Response) {
-    //     res.sendFile(path, {root: 'uploads'});
-    // }
-
-    // @Post('register')
-    // async register(@Body() body: RegisterDto) {
-
-    //     if (body.password !== body.passwordConfirm) {
-    //         throw new BadRequestException('Le mot de passe ne match pas!');
-    //     }
-    //     const hashed = await bcrypt.hash(body.password, 12);
-
-    //     return this.usersService.create({
-    //         logo: body.logo,
-    //         firstName: body.firstName,
-    //         lastName: body.lastName,
-    //         email: body.email,
-    //         telephone: body.telephone,
-    //         nameBusiness: body.nameBusiness,
-    //         succursale: body.succursale,
-    //         typeAbonnement: body.typeAbonnement,
-    //         province: body.province,
-    //         role: body.role,
-    //         createdAt: body.createdAt,
-    //         password: hashed
-    //     });
-    // }
-
-
-    // @Post('upload')
-    // @UseInterceptors(
-    //     FileInterceptor('logo', {
-    //         storage: diskStorage({
-    //             destination: './uploads',
-    //             filename: imageFileName,
-    //         }),
-    //         fileFilter: imageExtensionFilter,
-    //     }),
-    // )
 
 
     @Post('registeruser')
@@ -143,7 +101,13 @@ export class AuthController {
             nameBusiness: body.nameBusiness,
             succursale: body.succursale,
             typeAbonnement: body.typeAbonnement,
-            province: body.province,
+            monnaie: body.monnaie,
+            rccm: body.rccm,
+            nImpot: body.nImpot,
+            idNat: body.idNat,
+            pays: body.pays,
+            adresse: body.adresse,
+            adresseSucc: body.adresseSucc,
             role: body.role,
             createdAt: body.createdAt,
             password: hashed

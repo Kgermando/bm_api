@@ -27,7 +27,25 @@ export class UserCreateDto {
   typeAbonnement: string;
 
   @IsNotEmpty()
-  province: string;
+  monnaie: string;
+
+  @IsNotEmpty()
+  rccm: string;
+
+  @IsNotEmpty()
+  nImpot: string;
+
+  @IsNotEmpty()
+  idNat: string;
+
+  @IsNotEmpty()
+  pays: string;
+
+  @IsNotEmpty()
+  adresse: string;
+
+  @IsNotEmpty()
+  adresseSucc: string;
 
   @IsNotEmpty()
   role: string;
