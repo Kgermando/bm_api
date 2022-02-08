@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ChangePasswordDto } from 'src/auth/models/change-password.dto';
+import { ChangePasswordDto } from 'src/auth/dto/change-password.dto';
 import { AbstractService } from 'src/common/abstract.service';
 import { PaginatedResult } from 'src/common/paginate-result.interface';
 import { Repository } from 'typeorm';

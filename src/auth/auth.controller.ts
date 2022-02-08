@@ -19,13 +19,14 @@ import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { AuthGuard } from './auth.guard';
 import { UserService } from 'src/user/user.service';
-import { RegisterDto } from './models/register.dto';
+import { RegisterDto } from './dto/register.dto';
 import { ImageService } from 'src/user/image.service';
 import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { imageFileName } from 'src/utils/image-name.utils';
 import { imageExtensionFilter } from 'src/utils/image-extension.utils';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -154,6 +155,33 @@ export class AuthController {
         return {
             message: 'Success',
         };
+    }
+
+
+    async changePassword(id: number, changePasswordDto: ChangePasswordDto) {
+        const { oldPassword, newPassword, confirmPassword } = changePasswordDto
+        if (newPassword !== confirmPassword) {
+            return ({
+                code: 201,
+                message: 'Confirm password does not match new password'
+            })
+        }
+
+        const salt = await bcrypt.genSalt()
+        const userPassword = await bcrypt.hash(newPassword, salt)
+        try {
+            await this.usersService.update(id, { "$set": { password: userPassword } })
+        }
+        catch (error) {
+            return ({
+                code: 201,
+                message: 'Somethine wrong when update password'
+            })
+        }
+        return ({
+            code: 200,
+            message: 'Change password successfully'
+        })
     }
 
 }

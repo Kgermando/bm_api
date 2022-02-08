@@ -32,10 +32,9 @@ npm i sharp
 # Heroku
 
 .env
-DATABASE_URL=postgres://server:1234@192.168.43.128:5432/server
+DATABASE_URL=postgres://postgres:1234@localhost:5432/postgres
 
-postgres://lcfdwmuotuslrt:39d0a163bf7bfa44cb5dfa48f89ee5d14aa5eb1daa7c91f622f0efd75cf4065d@ec2-34-225-66-116.compute-1.amazonaws.com:5432/d86qfcluuf6cg9
-
+DATABASE_URL=postgres://ppxjgtuvpitxjk:b37e387cc07305849d91b2bc7891bd2573f99103f0c6a629a3d8cb46a90fc73c@ec2-34-225-66-116.compute-1.amazonaws.com:5432/d29msvmr088dfp
 
 in production active ssl=true
 
