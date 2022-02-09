@@ -50,7 +50,7 @@ export class AuthController {
     
     async register(
         @Body() body: RegisterDto,
-        @UploadedFile() logo,
+        @UploadedFile() logo: Express.Multer.File,
     ) {
         if (!logo?.path || !fs.existsSync(logo.path)) {
             throw new BadRequestException('File not loaded');
